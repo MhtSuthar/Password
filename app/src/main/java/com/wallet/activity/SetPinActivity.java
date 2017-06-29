@@ -15,10 +15,11 @@ import com.wallet.ui.HomeActivity;
 import com.wallet.util.AppUtils;
 import com.wallet.util.SharedPrefUtil;
 
-public class SetPinActivity extends AppCompatActivity implements View.OnClickListener {
+public class SetPinActivity extends AppCompatActivity  {
 
     boolean status;
     private String pin = "";
+    ActivitySetPinBinding binding;
 
 
     @Override
@@ -26,23 +27,21 @@ public class SetPinActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         AppUtils.preventScreenshot(this);
 
-        final ActivitySetPinBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_set_pin);
-        setSupportActionBar(binding.toolbar);
-        setTitle("SECURE PIN");
-
-//        SharedPrefUtil.init(this);
-//        SharedPrefUtil.save();
-
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_set_pin);
 
         binding.etPin1.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(s.length() > 0){
+                    binding.imgClose.setVisibility(View.VISIBLE);
+                }else{
+                    binding.imgClose.setVisibility(View.GONE);
+                }
                 if (s.length() == 4) {
                     if (SharedPrefUtil.getBoolean(AppUtils.STATUS, false)) {
                         if (s.toString().equals(SharedPrefUtil.getString(AppUtils.PIN, ""))) {
@@ -78,46 +77,63 @@ public class SetPinActivity extends AppCompatActivity implements View.OnClickLis
             }
         });
 
-
-
-     /*   sharedPreferences = getSharedPreferences(mypreferences, MODE_PRIVATE);
-        lstatus = sharedPreferences.getBoolean(loginstatus, false);
-        if (lstatus) {
-            Intent intent = new Intent(this, AddLogout.class);
-            startActivity(intent);
-            finish();
-        }*/
     }
 
+    public void onClickRemove(View view){
+        int length = binding.etPin1.getText().length();
+        if (length > 0) {
+            binding.etPin1.getText().delete(length - 1, length);
+            pin = binding.etPin1.getText().toString();
+        }
+    }
 
-    @Override
-    public void onClick(View v) {
+    public void onClickZero(View view){
+        pin += "0";
+        binding.etPin1.setText(pin);
+    }
 
-     /*   String n = edtEmail.getText().toString();
-        String p = edtPass.getText().toString();
+    public void onClickOne(View view){
+        pin += "1";
+        binding.etPin1.setText(pin);
+    }
 
-        DatabaseHandler db = new DatabaseHandler(this);
+    public void onClickTwo(View view){
+        pin += "2";
+        binding.etPin1.setText(pin);
+    }
 
-        int id = db.login(n, p);
+    public void onClickThree(View view){
+        pin += "3";
+        binding.etPin1.setText(pin);
+    }
 
-        if ((id == 0) | (n.length() == 0) | (p.length() == 0)) {
-//            lstatus = false;
-            Snackbar snackbar = Snackbar.make(linear, "Login Unsuccessful", Snackbar.LENGTH_LONG);
-            snackbar.show();
+    public void onClickFour(View view){
+        pin += "4";
+        binding.etPin1.setText(pin);
+    }
 
+    public void onClickFive(View view){
+        pin += "5";
+        binding.etPin1.setText(pin);
+    }
 
-        } else {
-            Toast.makeText(SetPinActivity.this, "You are logged In", Toast.LENGTH_SHORT).show();
-            SharedPreferences.Editor editor = sharedPreferences.edit();
+    public void onClickSix(View view){
+        pin += "6";
+        binding.etPin1.setText(pin);
+    }
 
-//            lstatus = true;
-            editor.putBoolean(loginstatus, true);
-            editor.putInt("id", id);
-            editor.commit();
+    public void onClickSeven(View view){
+        pin += "7";
+        binding.etPin1.setText(pin);
+    }
 
-            Intent intent = new Intent(SetPinActivity.this, AddLogout.class);
-            startActivity(intent);
-            finish();
-        }*/
+    public void onClickEight(View view){
+        pin += "8";
+        binding.etPin1.setText(pin);
+    }
+
+    public void onClickNine(View view){
+        pin += "9";
+        binding.etPin1.setText(pin);
     }
 }

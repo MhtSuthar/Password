@@ -4,23 +4,19 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
         android:orientation="vertical">
 
-        <android.support.design.widget.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/txt_header"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:theme="@style/AppTheme.AppBarOverlay">
-
-
-            <com.wallet.util.CenteredToolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                app:layout_scrollFlags="scroll|enterAlways|snap"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
-        </android.support.design.widget.AppBarLayout>
+            android:padding="@dimen/activity_horizontal_margin"
+            android:text="Add Your Credentials"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            />
 
         <ScrollView
             android:layout_width="match_parent"
@@ -31,9 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:background="@android:color/white"
                 android:orientation="vertical">
-
 
                 <EditText
                     android:id="@+id/edtTag"
@@ -41,7 +35,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
                     android:drawableLeft="@drawable/tag"
+                    android:backgroundTint="@color/colorAccent"
                     android:drawablePadding="10dp"
+                    android:textColorHint="@color/colorAccent"
                     android:hint="Tag*"
                     android:inputType="textCapWords" />
 
@@ -50,8 +46,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
+                    android:textColorHint="@color/colorAccent"
                     android:drawableLeft="@drawable/web_icon"
                     android:drawablePadding="10dp"
+                    android:backgroundTint="@color/colorAccent"
                     android:hint="Website Name"
                     android:inputType="textCapWords" />
 
@@ -62,6 +60,8 @@
                     android:layout_marginBottom="20dp"
                     android:drawableLeft="@drawable/email_icon"
                     android:drawablePadding="10dp"
+                    android:textColorHint="@color/colorAccent"
+                    android:backgroundTint="@color/colorAccent"
                     android:hint="Enter Your Email Id*"
                     android:inputType="textEmailAddress" />
 
@@ -69,9 +69,11 @@
                     android:id="@+id/edtPass"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColorHint="@color/colorAccent"
                     android:layout_marginBottom="20dp"
                     android:drawableLeft="@drawable/pass_icon"
                     android:drawablePadding="10dp"
+                    android:backgroundTint="@color/colorAccent"
                     android:hint="Enter Your Password*" />
 
                 <Button

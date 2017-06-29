@@ -1,9 +1,6 @@
 package com.wallet.ui;
 
 import android.Manifest;
-import android.app.Dialog;
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,18 +9,14 @@ import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.internal.BottomNavigationItemView;
+import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
-import android.view.LayoutInflater;
-import android.view.Menu;
+import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.wallet.R;
@@ -33,7 +26,6 @@ import com.wallet.activity.SupportActivity;
 import com.wallet.activity.TCActivity;
 import com.wallet.adapter.CustomListAdapter;
 import com.wallet.databinding.ActivityHomeBinding;
-import com.wallet.databinding.DialogViewBinding;
 import com.wallet.helper.DatabaseHandler;
 import com.wallet.model.Data;
 import com.wallet.ui.fragment.ChangePassFragment;
@@ -41,17 +33,18 @@ import com.wallet.ui.fragment.HomeFragment;
 import com.wallet.util.AppUtils;
 import com.wallet.util.PermissionUtil;
 
-import java.util.ArrayList;
+import java.lang.reflect.Field;
 import java.util.List;
 
 import static android.Manifest.permission.PROCESS_OUTGOING_CALLS;
 
-public class HomeActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener, SearchView.OnQueryTextListener {
+public class HomeActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
     private ActivityHomeBinding binding;
     private DatabaseHandler db;
     private List<Data> list;
     private CustomListAdapter adapter;
+    private static final String TAG = "HomeActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,34 +54,10 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
 
         AppUtils.preventScreenshot(this);
 
-        db = new DatabaseHandler(this);
-
-        list = new ArrayList<>();
-        list = db.getAllDetails();
-
-        if (list.size() > 0) {
-            adapter = new CustomListAdapter(this, list);
-            binding.listview.setAdapter(adapter);
-        } else {
-            binding.listview.setVisibility(View.GONE);
-            binding.relNoResult.setVisibility(View.VISIBLE);
-
-            binding.relNoResult.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(HomeActivity.this, AddDetailActivity.class);
-                    startActivity(i);
-                    finish();
-                }
-            });
-        }
-
-        binding.listview.setOnItemClickListener(this);
-        binding.listview.setOnItemLongClickListener(this);
-
         getSupportFragmentManager().beginTransaction().
                 replace(R.id.container, new HomeFragment(), "").commit();
 
+        disableShiftMode(binding.bottomNavigation);
         binding.bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -109,8 +78,20 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
                         i.setType("text/plain");
                         startActivity(i);
                         break;
+                    case R.id.menu_hide:
+                        String[] strPermissions = new String[]{Manifest.permission.PROCESS_OUTGOING_CALLS};
+                        boolean permissionGrant = PermissionUtil.checkPermission(HomeActivity.this, strPermissions);
+                        if (!permissionGrant) {
+                            PermissionUtil.requestPermission(HomeActivity.this, strPermissions, 100);
+                        } else {
+                            PackageManager p = getPackageManager();
+                            ComponentName cName = new ComponentName(HomeActivity.this, "com.wallet.activity.Splashscreen");
+                            p.setComponentEnabledSetting(cName, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+                            Toast.makeText(HomeActivity.this, "Master Password Hide", Toast.LENGTH_SHORT).show();
+                        }
+                        break;
                     case R.id.menu_logout:
-                        finish();
+                        logout();
                         break;
                 }
                 return true;
@@ -118,18 +99,31 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         });
     }
 
-   /* @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
 
-        if (list.size() > 0) {
-            MenuItem itemSearch = menu.findItem(R.id.action_search);
-            itemSearch.setVisible(true);
-            final SearchView searchView = (SearchView) MenuItemCompat.getActionView(itemSearch);
-            searchView.setOnQueryTextListener(this);
+
+    public static void disableShiftMode(BottomNavigationView view) {
+        BottomNavigationMenuView menuView = (BottomNavigationMenuView) view.getChildAt(0);
+        try {
+            Field shiftingMode = menuView.getClass().getDeclaredField("mShiftingMode");
+            shiftingMode.setAccessible(true);
+            shiftingMode.setBoolean(menuView, false);
+            shiftingMode.setAccessible(false);
+            for (int i = 0; i < menuView.getChildCount(); i++) {
+                BottomNavigationItemView item = (BottomNavigationItemView) menuView.getChildAt(i);
+                //noinspection RestrictedApi
+                item.setShiftingMode(false);
+                // set once again checked value, so view will be updated
+                //noinspection RestrictedApi
+                item.setChecked(item.getItemData().isChecked());
+            }
+        } catch (NoSuchFieldException e) {
+            Log.e("BNVHelper", "Unable to get shift mode field", e);
+        } catch (IllegalAccessException e) {
+            Log.e("BNVHelper", "Unable to change value of shift mode", e);
         }
-        return true;
-    }*/
+    }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -151,7 +145,6 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
                 return true;
 
             case R.id.hide:
-
                 String[] strPermissions = new String[]{Manifest.permission.PROCESS_OUTGOING_CALLS};
 
                 boolean permissionGrant = PermissionUtil.checkPermission(this, strPermissions);
@@ -159,13 +152,11 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
                 if (!permissionGrant) {
                     PermissionUtil.requestPermission(this, strPermissions, 100);
                 } else {
-
                     PackageManager p = this.getPackageManager();
                     ComponentName cName = new ComponentName(this, "com.wallet.activity.Splashscreen");
                     p.setComponentEnabledSetting(cName, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
                     Toast.makeText(this, "Master Password Hide", Toast.LENGTH_SHORT).show();
                 }
-
                 return true;
 
             case R.id.changePass:
@@ -179,7 +170,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
                 return true;
 
             case R.id.logout:
-                finish();
+                logout();
                 return true;
 
             case R.id.tc:
@@ -193,7 +184,26 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         }
     }
 
-    @Override
+    private void logout() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Are you sure you want to logout?");
+
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.show();
+    }
+
+   /* @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         final Dialog d = new Dialog(this);
 
@@ -227,10 +237,10 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         Window window = d.getWindow();
         window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         d.show();
-    }
+    }*/
 
 
-    @Override
+    /*@Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
         final String[] items = new String[]{"Update", "Delete"};
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
@@ -285,7 +295,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
 
 
         builder.show();
-    }
+    }*/
 
 
     @Override
@@ -347,14 +357,4 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         return true;
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK){
-            if(requestCode == 105){
-                getSupportFragmentManager().beginTransaction().
-                        replace(R.id.container, new HomeFragment(), "").commit();
-            }
-        }
-    }
 }

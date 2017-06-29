@@ -26,13 +26,9 @@ public class AddDetailActivity extends AppCompatActivity {
 
         final ActivityAddDetailBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_add_detail);
 
-        setSupportActionBar(binding.toolbar);
-
-
         final Bundle b = getIntent().getExtras();
         if (b != null) {
-
-            setTitle("Update Your Credentials");
+            binding.txtHeader.setText("Update Your Credentials");
             binding.btnSave.setText("UPDATE");
 
             binding.edtTag.setText(b.getString("keyTag"));
@@ -61,10 +57,8 @@ public class AddDetailActivity extends AppCompatActivity {
 
                         db.updateDetail(d);
 
-                        Intent i = new Intent(AddDetailActivity.this, HomeActivity.class);
-                        startActivity(i);
+                        setResult(RESULT_OK);
                         finish();
-
                         Toast.makeText(AddDetailActivity.this, "Updated Successfully", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(AddDetailActivity.this, "Please fill all mandatory fields", Toast.LENGTH_SHORT).show();
@@ -72,8 +66,6 @@ public class AddDetailActivity extends AppCompatActivity {
                 }
             });
         } else {
-            setTitle("Enter Your Credentials");
-
             binding.btnSave.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

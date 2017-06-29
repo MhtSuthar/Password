@@ -21,7 +21,7 @@
         <activity
             android:name=".activity.SetPinActivity"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".ui.HomeActivity" />
+        <activity android:name=".ui.HomeActivity" android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".activity.AddDetailActivity"
             android:windowSoftInputMode="stateHidden" />
