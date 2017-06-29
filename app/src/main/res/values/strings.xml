@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Master Password</string>
+
+    <string name="observe">We are obsessed with feedback. \nIt will help us improve and innovate</string>
+    <string name="like_this_app">I like this app!</string>
+    <string name="problem">There\'s a problem...</string>
+    <string name="enter_issue">Issue</string>
+
+    <string name="t_c">\u25CF Master Password App team works dayin and dayout to ensure that your data is not stored or leaked.\n\n
+        \u25CF We are not storing your security data on any server, rather we are using a local encrypted database to store the details for your convinience, hence providing you with end to end encryption and ensure you the security to the fullest.
+\n\n
+    \u25CF We are not permitting the user to screenshot the application using the default screenshot functionality.\n\n
+    \u25CF We do not gaurantee security about any third party screen capturing applications.\n\n
+    \u25CF This app also feautures the hide/unhide functionality where you can hide this app from the application list and thus adding it to your privacy and security.
+\n\n
+    \u25CF To unhide the app you can you can dial your pin in the dialer suffixing it with a "#".</string>
+    <string name="search">Search</string>
+    <string name="pwd_list">Password List</string>
+    <string name="menu_home">Home</string>
+    <string name="change_password">Change Password</string>
+    <string name="logout">Logout</string>
+    <string name="share">Share</string>
+</resources>

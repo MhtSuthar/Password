@@ -1,0 +1,40 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/add"
+        android:orderInCategory="1"
+        android:title="Add" />
+    <item
+        android:id="@+id/logout"
+        android:orderInCategory="10"
+        android:title="Logout" />
+    <item
+        android:id="@+id/share"
+        android:orderInCategory="5"
+        android:title="Share" />
+    <item
+        android:id="@+id/hide"
+        android:orderInCategory="3"
+        android:title="Hide" />
+    <item
+        android:orderInCategory="2"
+        android:id="@+id/changePass"
+        android:title="Change Password" />
+
+    <item
+        android:orderInCategory="4"
+        android:id="@+id/support"
+        android:title="Support"/>
+    <item
+        android:orderInCategory="6"
+        android:id="@+id/tc"
+        android:title="Security Commitment"/>
+
+    <item
+        android:id="@+id/action_search"
+        android:icon="@drawable/search"
+        android:title="@string/search"
+        android:visible="false"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:showAsAction="always|collapseActionView" />
+</menu>
