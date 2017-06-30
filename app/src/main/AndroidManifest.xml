@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.wallet">
+    package="com.keep.safe">
 
     <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name=".helper.wallet"
+        android:name="com.keep.safe.helper.wallet"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".activity.Splashscreen">
+        <activity android:name="com.keep.safe.activity.Splashscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,27 +21,26 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.SetPinActivity"
+            android:name="com.keep.safe.activity.SetPinActivity"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".ui.HomeActivity" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name="com.keep.safe.ui.HomeActivity" android:windowSoftInputMode="adjustResize"/>
         <activity
-            android:name=".activity.AddDetailActivity"
+            android:name="com.keep.safe.activity.AddDetailActivity"
             android:windowSoftInputMode="stateHidden" />
 
-        <receiver android:name=".helper.CallReciever">
+        <receiver android:name="com.keep.safe.helper.CallReciever">
             <intent-filter>
                 <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
             </intent-filter>
         </receiver>
 
         <activity
-            android:name=".activity.ChangePasswordActivity"
-            android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".activity.SupportActivity" />
-        <activity android:name=".activity.FeedbackActivity" />
-        <activity
-            android:name=".activity.TCActivity"
+            android:name="com.keep.safe.activity.TCActivity"
             android:theme="@android:style/Theme.Dialog" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>

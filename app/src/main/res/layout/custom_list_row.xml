@@ -2,174 +2,189 @@
 <layout xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="data"
-            type="com.wallet.model.Data" />
+            type="com.safe.model.Data" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:padding="@dimen/activity_horizontal_margin"
         android:orientation="vertical">
 
-        <android.support.v7.widget.CardView
+        <!--<android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardBackgroundColor="@android:color/white"
-            app:contentPadding="@dimen/activity_horizontal_margin"
-            app:cardElevation="8dp">
+            app:cardElevation="8dp"
+            app:contentPadding="@dimen/activity_horizontal_margin">-->
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <RelativeLayout
+                    android:id="@+id/rel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tvList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:drawableLeft="@drawable/ic_tag_grey"
+                        android:layout_toLeftOf="@+id/img_more"
+                        android:gravity="center_vertical"
+                        android:drawablePadding="5dp"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
+
+                    <ImageView
+                        android:id="@+id/img_more"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="10dp"
+                        android:src="@drawable/ic_view_more" />
+
+                </RelativeLayout>
+
                 <TextView
-                    android:id="@+id/tvList"
+                    android:id="@+id/expandImage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:text="@{data.tag}"
-                    android:textColor="@android:color/black"
-                    android:textSize="18sp"
-                   />
-
-                <ImageView
-                    android:id="@+id/expandImage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:src="@drawable/email_icon"
+                    android:gravity="right"
+                    android:layout_marginTop="5dp"
+                    android:text="View More"
+                    android:textColor="@color/colorPrimaryDark"
                     android:layout_below="@+id/expandLayout"
-                    />
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/ic_dot_more" />
 
                 <LinearLayout
                     android:id="@+id/expandLayout"
                     android:layout_width="match_parent"
-                    android:layout_below="@+id/tvList"
-                    android:orientation="vertical"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rel"
                     android:layout_marginTop="@dimen/activity_horizontal_margin"
-                    android:visibility="gone"
-                    android:layout_height="wrap_content">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:orientation="horizontal"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="3"
                             android:text="Website : "
-                            android:textAppearance="?android:textAppearanceMedium"
-                            />
+                            android:textAppearance="?android:textAppearanceMedium" />
 
                         <RelativeLayout
                             android:layout_width="0dp"
-                            android:layout_weight="7"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:layout_weight="7">
 
                             <TextView
                                 android:id="@+id/txt_website"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Website : "
                                 android:layout_marginRight="5dp"
                                 android:layout_toLeftOf="@+id/img_copy_website"
-                                android:textAppearance="?android:textAppearanceMedium"
-                                />
+                                android:text="Website : "
+                                android:textAppearance="?android:textAppearanceMedium" />
 
                             <ImageView
                                 android:id="@+id/img_copy_website"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_alignParentTop="true"
                                 android:layout_alignParentRight="true"
-                                android:src="@drawable/pass_icon"
-                                />
+                                android:layout_alignParentTop="true"
+                                android:src="@drawable/ic_copy" />
                         </RelativeLayout>
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:orientation="horizontal"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:layout_height="wrap_content">
+                        android:orientation="horizontal">
 
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="3"
                             android:text="Email : "
-                            android:textAppearance="?android:textAppearanceMedium"
-                            />
+                            android:textAppearance="?android:textAppearanceMedium" />
 
                         <RelativeLayout
                             android:layout_width="0dp"
-                            android:layout_weight="7"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:layout_weight="7">
 
                             <TextView
                                 android:id="@+id/txt_email"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Email : "
                                 android:layout_marginRight="5dp"
                                 android:layout_toLeftOf="@+id/img_copy_email"
-                                android:textAppearance="?android:textAppearanceMedium"
-                                />
+                                android:text="Email : "
+                                android:textAppearance="?android:textAppearanceMedium" />
 
                             <ImageView
                                 android:id="@+id/img_copy_email"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_alignParentTop="true"
                                 android:layout_alignParentRight="true"
-                                android:src="@drawable/pass_icon"
-                                />
+                                android:layout_alignParentTop="true"
+                                android:src="@drawable/ic_copy" />
                         </RelativeLayout>
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:orientation="horizontal"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:layout_height="wrap_content">
+                        android:orientation="horizontal">
 
                         <TextView
                             android:layout_width="0dp"
-                            android:layout_weight="3"
                             android:layout_height="wrap_content"
+                            android:layout_weight="3"
                             android:text="Password : "
-                            android:textAppearance="?android:textAppearanceMedium"
-                            />
+                            android:textAppearance="?android:textAppearanceMedium" />
 
                         <RelativeLayout
                             android:layout_width="0dp"
-                            android:layout_weight="7"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:layout_weight="7">
 
                             <TextView
                                 android:id="@+id/txt_password"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Website : "
                                 android:layout_marginRight="5dp"
                                 android:layout_toLeftOf="@+id/img_copy_password"
-                                android:textAppearance="?android:textAppearanceMedium"
-                                />
+                                android:text="Website : "
+                                android:textAppearance="?android:textAppearanceMedium" />
 
                             <ImageView
                                 android:id="@+id/img_copy_password"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_alignParentTop="true"
                                 android:layout_alignParentRight="true"
-                                android:src="@drawable/pass_icon"
-                                />
+                                android:layout_alignParentTop="true"
+                                android:src="@drawable/ic_copy" />
                         </RelativeLayout>
 
                     </LinearLayout>
@@ -177,6 +192,6 @@
                 </LinearLayout>
 
             </RelativeLayout>
-        </android.support.v7.widget.CardView>
+       <!-- </android.support.v7.widget.CardView>-->
     </LinearLayout>
 </layout>

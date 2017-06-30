@@ -2,8 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@color/colorPrimary"
     android:fitsSystemWindows="true"
+    android:padding="@dimen/activity_horizontal_margin"
     android:orientation="vertical">
 
     <TextView
@@ -12,14 +13,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:background="@android:color/transparent"
-        android:gravity="center_vertical"
-        android:paddingBottom="10dp"
-        android:paddingRight="20dp"
-        android:paddingTop="10dp"
+        android:background="@drawable/button_blue"
+        android:gravity="center"
+        android:textAppearance="?android:textAppearanceMedium"
         android:text="AGREE"
-        android:textColor="@android:color/holo_blue_light"
-        android:textSize="16sp"
+        android:textColor="@android:color/white"
         android:textStyle="bold" />
 
     <LinearLayout
@@ -32,16 +30,9 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="15dp"
             android:text="Security Commitment"
-            android:textColor="@color/colorPrimary"
-            android:textSize="22sp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorPrimary" />
+            android:textColor="@android:color/white"
+            android:textAppearance="?android:textAppearanceLarge" />
 
         <ScrollView
             android:layout_width="match_parent"
@@ -53,9 +44,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:textColor="@android:color/black"
-                android:textSize="18sp" />
-
+                android:textAppearance="?android:textAppearanceSmall"
+                 />
 
         </ScrollView>
     </LinearLayout>
