@@ -9,11 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.keep.safe.R;
+import com.keep.safe.databinding.ActivityChangesPasswordBinding;
 import com.keep.safe.util.AppUtils;
 import com.keep.safe.util.SharedPrefUtil;
-import com.safe.R;
-
-import com.safe.databinding.ActivityChangePasswordBinding;
 
 /**
  * Created by Admin on 28-Jun-17.
@@ -21,11 +20,11 @@ import com.safe.databinding.ActivityChangePasswordBinding;
 
 public class ChangePassFragment  extends Fragment implements  View.OnClickListener{
 
-    ActivityChangePasswordBinding binding;
+    ActivityChangesPasswordBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.activity_change_password, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.activity_changes_password, container, false);
         return binding.getRoot();
     }
 

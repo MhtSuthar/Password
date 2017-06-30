@@ -108,10 +108,6 @@ public class HomeActivity extends AppCompatActivity implements SearchView.OnQuer
     private void initAds() {
         AdRequest adRequest = new AdRequest.Builder()
                 .build();
-        binding.adView.loadAd(adRequest);
-
-        if(!isOnline(this))
-            binding.adView.setVisibility(View.GONE);
 
         mInterstitialAd = new InterstitialAd(this);
         // set the ad unit ID
@@ -235,28 +231,6 @@ public class HomeActivity extends AppCompatActivity implements SearchView.OnQuer
             finish();
     }
 
-    @Override
-    public void onPause() {
-        if (binding.adView != null) {
-            binding.adView.pause();
-        }
-        super.onPause();
-    }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (binding.adView != null) {
-            binding.adView.resume();
-        }
-    }
-
-    @Override
-    public void onDestroy() {
-        if (binding.adView != null) {
-            binding.adView.destroy();
-        }
-        super.onDestroy();
-    }
 
 }

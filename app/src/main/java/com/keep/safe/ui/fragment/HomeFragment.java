@@ -17,6 +17,8 @@ import android.widget.ImageView;
 
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.keep.safe.R;
 import com.keep.safe.activity.AddDetailActivity;
 import com.keep.safe.helper.DatabaseHandler;
@@ -27,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
+import static com.keep.safe.util.AppUtils.isOnline;
 
 /**
  * Created by Admin on 28-Jun-17.
@@ -40,6 +43,7 @@ public class HomeFragment extends Fragment {
     private HomeListAdapter adapter;
     private ImageView mImageAdd;
     private TextView txtEmpty;
+    private AdView adView;
     private static final String TAG = "HomeFragment";
 
     @Override
@@ -62,6 +66,16 @@ public class HomeFragment extends Fragment {
             }
         });
         setAllData();
+        initAds(view);
+    }
+
+    void initAds(View view){
+        adView = (AdView) view.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+                .build();
+        adView.loadAd(adRequest);
+        if(!isOnline(getActivity()))
+            adView.setVisibility(View.GONE);
     }
 
     private void setAllData() {
@@ -127,6 +141,30 @@ public class HomeFragment extends Fragment {
             }
         });
         builder.show();
+    }
+
+    @Override
+    public void onPause() {
+        if (adView != null) {
+            adView.pause();
+        }
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (adView != null) {
+            adView.resume();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        if (adView != null) {
+            adView.destroy();
+        }
+        super.onDestroy();
     }
 
 

@@ -16,9 +16,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.keep.safe.R;
 import com.keep.safe.model.Data;
 import com.keep.safe.ui.fragment.HomeFragment;
-import com.safe.R;
 
 import java.util.List;
 
@@ -83,7 +83,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.MyView
 
                     if (shouldExpand) {
                         holder.linMain.setVisibility(View.VISIBLE);
-                        holder.expandImage.setText("Hide");
+                        holder.expandImage.setText("Less");
                     } else {
                         holder.linMain.setVisibility(View.GONE);
                         holder.expandImage.setText("View More");

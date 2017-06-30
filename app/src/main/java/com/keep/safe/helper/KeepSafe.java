@@ -1,24 +1,25 @@
-package com.safe.helper;
+package com.keep.safe.helper;
 
 import android.app.Application;
 import android.content.Context;
 
-import com.safe.util.SharedPrefUtil;
+import com.keep.safe.util.SharedPrefUtil;
+
 
 /**
  * Created by AND004 on 27-May-17.
  */
 
-public class wallet extends Application {
+public class KeepSafe extends Application {
 
     private static Context context;
-    private static wallet mInstance = null;
+    private static KeepSafe mInstance = null;
 
     public static Context getAppContext() {
         return context;
     }
 
-    public static wallet getInstance() {
+    public static KeepSafe getInstance() {
         return mInstance;
     }
 
